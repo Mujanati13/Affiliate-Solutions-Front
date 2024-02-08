@@ -1,3 +1,4 @@
+import "../src/style/output.css";
 function App() {
   return (
     <div className="App">
