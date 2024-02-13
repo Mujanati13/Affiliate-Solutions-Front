@@ -78,7 +78,7 @@ const Login = () => {
           By Signing up to uBrand, means you agree to our Privacy Policy and
           Terms of Service
         </div>
-        <div className="mt-5 text-center w-96">
+        <div className="mt-5 text-center md:w-96">
           <span className="opacity-80">Already a Member? </span>{" "}
           <span className="text-blue-600 underline-offset-1">LOG IN</span>
         </div>
