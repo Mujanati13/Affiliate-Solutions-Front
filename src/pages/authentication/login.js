@@ -31,7 +31,7 @@ const Login = () => {
       <div className="">
         <div className="text-2xl opacity-75">Affiliate Solutions</div>
         <div className="md:text-3xl text-2xl font-normal mt-5 md:w-96">
-          Start Your 600-Day Free Trial Today
+          Continue to your Account.
         </div>
         <div
           style={{ backgroundColor: "#E3F3FB" }}
@@ -45,7 +45,7 @@ const Login = () => {
               alt="google-logo"
             />
           </div>
-          <div>Sign up with Google</div>
+          <div>Log in with Google</div>
         </div>
         <div className="md:w-96 mt-5">
           <Input
@@ -74,13 +74,10 @@ const Login = () => {
             "START MY FREE TRIAL"
           )}
         </div>
-        <div className="text-xs opacity-80 mt-5 md:w-96">
-          By Signing up to uBrand, means you agree to our Privacy Policy and
-          Terms of Service
-        </div>
+        
         <div className="mt-5 text-center md:w-96">
-          <span className="opacity-80">Already a Member? </span>{" "}
-          <span className="text-blue-600 underline-offset-1">LOG IN</span>
+          <span className="opacity-80">Are you a Newbie?</span>{" "}
+          <span className="text-blue-600 underline-offset-1">GET STARTED - IT'S FREE</span>
         </div>
       </div>
     </div>
