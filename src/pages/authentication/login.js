@@ -1,117 +1,90 @@
-import React from 'react';
-import { LockOutlined, UserOutlined, SmileTwoTone, RightOutlined, GoogleOutlined } from '@ant-design/icons';
-import { Avatar, Divider, Button, Form, Input, Image, Row, Col, Space } from 'antd';
-
-const logo = 'https://gw.alipayobjects.com/zos/rmsportal/KDpgvguMpGfqaHPjicRK.svg';
-
+import React, { useState } from "react";
+import { SmileTwoTone } from "@ant-design/icons";
+import { Spin, Input } from "antd";
 
 const Login = () => {
-    const onFinish = (values) => {
-        console.log('Received values of form: ', values);
-    };
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [loading, setLoading] = useState(false);
 
-    return (
-        <div>
+  const handleEmailChange = (e) => {
+    setEmail(e.target.value);
+  };
 
-            <Row align="middle" justify="center" style={{ minHeight: '95vh', padding: '0 50px' }}>
-                <Col span={11}>
+  const handlePasswordChange = (e) => {
+    setPassword(e.target.value);
+  };
 
-                    <div style={{ width: 579, height: 841 }}>
-                        <Space direction="vertical" size="middle" style={{ display: 'flex' }}>
-                            <Avatar src={logo} style={{ margin: '50px 10px 30px 0' }} />
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    // Check if email and password exist
+    if (!email || !password) {
+      alert("Please enter both email and password.");
+      return;
+    }
+    setLoading(true);
+    // Simulate asynchronous operation (e.g., API request)
+  };
 
-                            <div>
-                                <p>WELCOME BACK <SmileTwoTone /> </p>
-                                <h1>Continue to your Account.</h1>
-                            </div>
-
-                            <Button type="primary" shape="round" icon={<GoogleOutlined />} size='large' block style={{ backgroundColor: 'rgba(227, 243, 251, 1)', color: 'black' }}>
-                                Log in with Google
-                            </Button>
-
-                            <Divider plain>Or use Email</Divider>
-
-                            <Form
-                                name="normal_login"
-                                className="login-form"
-                                initialValues={{
-                                    remember: true,
-                                }}
-                                onFinish={onFinish}
-                            >
-                                <Form.Item
-                                    name="email"
-                                    rules={[
-                                        {
-                                            required: true,
-                                            message: 'Please input your Email!',
-                                        },
-                                        {
-                                            type: 'email',
-                                            message: 'Please enter a valid email address!',
-                                        },
-                                    ]}
-                                >
-                                    <Input
-                                        prefix={<UserOutlined
-                                            className="site-form-item-icon" />}
-                                        placeholder="Email"
-                                        size="large"
-                                        variant="filled"
-                                    />
-                                </Form.Item>
-                                <Form.Item
-                                    name="password"
-                                    rules={[
-                                        {
-                                            required: true,
-                                            message: 'Please input your Password!',
-                                        },
-                                    ]}
-                                >
-                                    <Input
-                                        prefix={<LockOutlined className="site-form-item-icon" />}
-                                        type="password"
-                                        placeholder="Password"
-                                        size="large"
-                                        variant="filled"
-                                    />
-                                </Form.Item>
-
-                                <Form.Item>
-                                    <Button type="primary" htmlType="submit" className="login-form-button" block size='large' style={{ backgroundColor: 'rgba(47, 53, 56, 1)' }}>
-                                        Log in <RightOutlined />
-                                    </Button>
-                                </Form.Item>
-                                <Col span={24} style={{ textAlign: 'center', marginTop: 16 }}>
-                                    <Form.Item >
-                                        Are you a Newbie? <a href="./#">register now!</a>
-                                    </Form.Item>
-                                </Col>
-                            </Form>
-                        </Space>
-                    </div>
-                </Col>
-                <Col
-                    span={24} md={9}
-                // style={{ display: { xs: 'none', md: 'block' } }} // hide on small screens
-                // responsive={{ xs: false, md: true }} // show on medium screens and above
-                >
-                    <Image
-                        src={'#'}
-                        // src={require('../assets/images/login.jpg')}
-                        className="img-fluid"
-                        alt='login'
-                        style={{ width: '100%' }}
-                        minHeight={'95vh'}
-                        preview={false}
-
-                    />
-                </Col>
-
-            </Row>
+  return (
+    <div className="md:flex md:justify-center md:pt-10 md:pl-20 md:pr-20 p-5">
+      <div className="">
+        <div className="text-2xl opacity-75">Affiliate Solutions</div>
+        <div className="md:text-3xl text-2xl font-normal mt-5 md:w-96">
+          Start Your 600-Day Free Trial Today
         </div>
-    );
+        <div
+          style={{ backgroundColor: "#E3F3FB" }}
+          className="h-12 md:w-96 rounded-full text-center flex items-center justify-center font-light mt-5 space-x-3"
+        >
+          <div>
+            <img
+              width="30"
+              height="30"
+              src="https://img.icons8.com/color/48/google-logo.png"
+              alt="google-logo"
+            />
+          </div>
+          <div>Sign up with Google</div>
+        </div>
+        <div className="md:w-96 mt-5">
+          <Input
+            className="h-10"
+            placeholder="Email"
+            value={email}
+            onChange={handleEmailChange}
+          />
+          <Input
+            className="h-10 mt-2"
+            type="password"
+            placeholder="Password"
+            value={password}
+            onChange={handlePasswordChange}
+          />
+        </div>
+        <div
+          className={`mt-2 cursor-pointer h-10 text-sm uppercase md:w-96 bg-black rounded-md text-white flex justify-center items-center font-medium ${
+            loading ? "opacity-50 cursor-not-allowed" : ""
+          }`}
+          onClick={!loading ? handleSubmit : null}
+        >
+          {loading ? (
+            <Spin indicator={<SmileTwoTone spin />} />
+          ) : (
+            "START MY FREE TRIAL"
+          )}
+        </div>
+        <div className="text-xs opacity-80 mt-5 md:w-96">
+          By Signing up to uBrand, means you agree to our Privacy Policy and
+          Terms of Service
+        </div>
+        <div className="mt-5 text-center w-96">
+          <span className="opacity-80">Already a Member? </span>{" "}
+          <span className="text-blue-600 underline-offset-1">LOG IN</span>
+        </div>
+      </div>
+    </div>
+  );
 };
 
 export default Login;
