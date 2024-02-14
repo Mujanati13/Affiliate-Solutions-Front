@@ -1,11 +1,15 @@
 import React, { useState } from "react";
 import { SmileTwoTone } from "@ant-design/icons";
 import { Spin, Input } from "antd";
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
+
 
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
+  const navigate = useNavigate();
 
   const handleEmailChange = (e) => {
     setEmail(e.target.value);
@@ -15,13 +19,34 @@ const Login = () => {
     setPassword(e.target.value);
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
+
     // Check if email and password exist
     if (!email || !password) {
       alert("Please enter both email and password.");
       return;
     }
+
+    try {
+      // Send a POST request to your server's login endpoint with user credentials
+      const response = await axios.post("http://localhost:5000/users/api/v1/beta/login", {email,password});
+
+      // Check if the login was successful
+      if (response.data && response.data.success) {
+        // Redirect or perform other actions upon successful login
+        navigate("/dashboard");
+        console.log("Login successful");
+        return; // Stop further execution  
+      } else {
+        // Handle unsuccessful login (show an error message, etc.)
+        console.error("Login failed");
+      }
+    } catch (error) {
+      // Handle network or other errors
+      console.error("An error occurred during login", error);
+    }
+
     setLoading(true);
     // Simulate asynchronous operation (e.g., API request)
   };

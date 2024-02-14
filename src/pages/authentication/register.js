@@ -1,6 +1,9 @@
 import React, { useState } from "react";
 import { SmileTwoTone } from "@ant-design/icons";
 import { Spin, Input } from "antd";
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
+
 
 const Register = () => {
     const [email, setEmail] = useState("");
@@ -8,6 +11,7 @@ const Register = () => {
     const [firstname, setFirstname] = useState("");
     const [lastname, setLastname] = useState("");
     const [loading, setLoading] = useState(false);
+    const navigate = useNavigate();
   
     const handleEmailChange = (e) => {
       setEmail(e.target.value);
@@ -25,8 +29,48 @@ const Register = () => {
     setLastname(e.target.value);
     };
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
+
+        try {
+            const response = await axios.post("http://localhost:5000/users/api/v1/beta/register", {
+              email,
+              password,
+              "first-name": firstname,
+              "last-name": lastname,
+            });
+            
+            // Check if the registration was successful
+            if (response.data && response.data.success) {
+            // Redirect to the dashboard upon successful registration
+            navigate("/dashboard");
+            return; // Stop further execution
+            } else {
+            // Handle unsuccessful registration (show an error message, etc.)
+            console.error("Registration failed");
+            }
+            
+          } catch (error) {
+            console.error("An error occurred during registration", error);
+            // Handle error states
+            if (error.response) {
+                // The request was made and the server responded with a status code
+                // that falls out of the range of 2xx
+                console.log("Error status:", error.response.status);
+                console.log("Error message:", error.response.data.message);
+                
+                
+            } else if (error.request) {
+                // The request was made but no response was received
+                console.log("No response received");
+                
+            } else {
+                // Something happened in setting up the request that triggered an Error
+                console.log("Error message:", error.message);
+                
+            }
+          }
+
         setLoading(true);
         // Simulate asynchronous operation (e.g., API request)
       };
